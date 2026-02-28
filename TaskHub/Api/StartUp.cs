@@ -3,6 +3,7 @@ using Api.UseCases.Users.Interfaces;
 using Dal;
 using Logic;
 using Microsoft.OpenApi.Models;
+using Api.Middleware;
 
 namespace Api;
 
@@ -80,6 +81,9 @@ public sealed class Startup
         }
 
         app.UseRouting();
+
+        app.UseMiddleware<StudentInfoMiddleware>();
+        app.UseMiddleware<ResponseTimeMiddleware>();
 
         app.UseEndpoints(endpoints =>
         {
