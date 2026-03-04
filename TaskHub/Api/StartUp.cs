@@ -3,6 +3,9 @@ using Api.UseCases.Users.Interfaces;
 using Dal;
 using Logic;
 using Microsoft.OpenApi.Models;
+using Api.Middleware;
+using Api.DiScopes;
+using Api.DiScopes.Lifetimes;
 
 namespace Api;
 
@@ -38,6 +41,18 @@ public sealed class Startup
         services.AddLogic();
         
         services.AddScoped<IManageUserUseCase, ManageUserUseCase>();
+
+          // Singleton
+        services.AddSingleton<ISingletonService1, SingletonService1>();
+        services.AddSingleton<ISingletonService2, SingletonService2>();
+
+        // Scoped
+        services.AddScoped<IScopedService1, ScopedService1>();
+        services.AddScoped<IScopedService2, ScopedService2>();
+
+        // Transient
+        services.AddTransient<ITransientService1, TransientService1>();
+        services.AddTransient<ITransientService2, TransientService2>();
         
         services.AddCors(options =>
         {
