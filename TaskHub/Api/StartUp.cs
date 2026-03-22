@@ -1,5 +1,7 @@
 using Api.UseCases.Users;
 using Api.UseCases.Users.Interfaces;
+using Api.UseCases.Tasks;
+using Logic.Tasks.Interfaces;
 using Dal;
 using Logic;
 using Microsoft.OpenApi.Models;
@@ -38,6 +40,13 @@ public sealed class Startup
         services.AddLogic();
         
         services.AddScoped<IManageUserUseCase, ManageUserUseCase>();
+
+        services.AddScoped<ICreateTaskUseCase, CreateTaskUseCase>();
+        services.AddScoped<IGetTasksUseCase, GetTasksUseCase>();
+        services.AddScoped<IGetTaskUseCase, GetTaskUseCase>();
+        services.AddScoped<ISetTaskTitleUseCase, SetTaskTitleUseCase>();
+        services.AddScoped<IDeleteTaskUseCase, DeleteTaskUseCase>();
+        services.AddScoped<IDeleteTasksUseCase, DeleteTasksUseCase>();
         
         services.AddCors(options =>
         {
