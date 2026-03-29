@@ -3,6 +3,7 @@ using Api.Controllers.Tasks.Response;
 using Logic.Tasks.Models;
 using Logic.Tasks.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Api.Attributes;
 
 namespace Api.Controllers.Tasks;
 
@@ -35,9 +36,9 @@ public sealed class TasksController : ControllerBase
         return Ok(models.Select(MapToResponse).ToList());
     }
 
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<TaskResponse>> FetchTaskByIdAsync(
-        [FromRoute] Guid id,
+        [FromRouteTaskId] Guid id,
         CancellationToken ct)
     {
         var model = await _tasks.GetTaskByIdAsync(id, ct);
@@ -49,9 +50,9 @@ public sealed class TasksController : ControllerBase
         return Ok(MapToResponse(model));
     }
 
-    [HttpPut("{id:guid}/title")]
+    [HttpPut("{id}/title")]
     public async Task<IActionResult> UpdateTaskTitleAsync(
-        [FromRoute] Guid id,
+        [FromRouteTaskId] Guid id,
         [FromBody] SetTaskTitleRequest? body,
         CancellationToken ct)
     {
@@ -59,9 +60,9 @@ public sealed class TasksController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id:guid}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveTaskByIdAsync(
-        [FromRoute] Guid id,
+        [FromRouteTaskId] Guid id,
         CancellationToken ct)
     {
         var removed = await _tasks.DeleteTaskByIdAsync(id, ct);
