@@ -5,6 +5,7 @@ using Logic.Tasks.Interfaces;
 using Dal;
 using Logic;
 using Microsoft.OpenApi.Models;
+using Api.Filters;
 
 namespace Api;
 
@@ -47,6 +48,11 @@ public sealed class Startup
         services.AddScoped<ISetTaskTitleUseCase, SetTaskTitleUseCase>();
         services.AddScoped<IDeleteTaskUseCase, DeleteTaskUseCase>();
         services.AddScoped<IDeleteTasksUseCase, DeleteTasksUseCase>();
+
+        services.AddScoped<StudentInfoHeadersFilter>();
+        services.AddScoped<RequestLoggingFilter>();
+        services.AddScoped<ValidateCreateTaskRequestFilter>();
+        services.AddScoped<ValidateSetTaskTitleRequestFilter>();
         
         services.AddCors(options =>
         {
